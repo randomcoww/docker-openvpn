@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: transmission
+  name: openvpn
 spec:
   restartPolicy: Always
   hostNetwork: true
