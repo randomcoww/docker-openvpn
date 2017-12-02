@@ -1,0 +1,54 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: transmission
+spec:
+  restartPolicy: Always
+  hostNetwork: true
+  volumes:
+  - name: nettun
+    hostPath:
+      path: "/dev/net/tun"
+  containers:
+  - name: openvpn
+    image: randomcoww/k8s-openvpn:latest
+    securityContext:
+      capabilities:
+        add:
+        - NET_ADMIN
+    args:
+    - "--route 10.0.0.0 255.0.0.0 net_gateway"
+    - "--route 172.16.0.0 255.240.0.0 net_gateway"
+    - "--route 192.168.0.0 255.255.0.0 net_gateway"
+    env:
+    - name: OVPN_CONFIG
+      value: |-
+        client
+        dev tun
+        proto udp
+        remote test.local 1194
+        resolv-retry infinite
+        nobind
+        persist-key
+        tls-client
+        remote-cert-tls server
+        comp-lzo
+        verb 3
+        reneg-sec 0
+        cipher BF-CBC
+        keepalive 10 30
+        route-nopull
+        redirect-gateway
+        fast-io
+    - name: OVPN_AUTH_USER_PASS
+      value: |-
+        user
+        pass
+    - name: OVPN_CA
+      value: |-
+        -----BEGIN CERTIFICATE-----
+        -----END CERTIFICATE-----
+    volumeMounts:
+    - mountPath: "/dev/net/tun"
+      name: nettun
