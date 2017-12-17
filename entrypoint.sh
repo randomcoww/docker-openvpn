@@ -12,7 +12,8 @@ pid_path='/run/openvpn.pid'
 rm -f "$config_path/__*"
 
 opt_prefix='OVPN_'
-while IFS='=' read -r config n ; do
+
+for config in $(compgen -e); do
   if [[ $config == $opt_prefix* ]]; then
     opt=${config#$opt_prefix}
     opt=${opt//_/-}
@@ -21,7 +22,7 @@ while IFS='=' read -r config n ; do
     echo -en "${!config}" > "$config_path/__$opt"
     file_opts="$file_opts --$opt $config_path/__$opt"
   fi
-done < <(env)
+done
 
 ## start
 rm -f "$status_path" "$pid_path"
