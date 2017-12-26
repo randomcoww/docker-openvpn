@@ -5,7 +5,6 @@ metadata:
   name: openvpn
 spec:
   restartPolicy: Always
-  hostNetwork: true
   volumes:
   - name: nettun
     hostPath:
