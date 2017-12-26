@@ -28,7 +28,7 @@ done
 ## https://caveofcode.com/2017/06/how-to-setup-a-vpn-connection-from-inside-a-pod-in-kubernetes/
 mkdir -p /dev/net
 mknod -m 600 /dev/net/tun c 10 200
-openvpn --mktun --dev tun0 --dev-type tun --user root --group nogroup
+openvpn --mktun --dev tun0 --dev-type tun --user root --group nobody
 
 ## start
 openvpn_cmd="exec openvpn \
@@ -40,4 +40,4 @@ openvpn_cmd="exec openvpn \
   --writepid "$pid_path""
 
 rm -f $status_path $pid_path
-exec sg nogroup -c "$openvpn_cmd"
+exec sg nobody -c "$openvpn_cmd"
