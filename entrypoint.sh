@@ -26,8 +26,8 @@ done
 
 ## start
 rm -f $status_path $pid_path
-exec sg nogroup -c "exec openvpn \
+exec openvpn \
   $@ $file_opts \
   --cd $config_path \
   --status $status_path 10 \
-  --writepid $pid_path"
+  --writepid $pid_path
