@@ -24,10 +24,17 @@ for config in $(compgen -e); do
   fi
 done
 
+## create tun device
+## https://caveofcode.com/2017/06/how-to-setup-a-vpn-connection-from-inside-a-pod-in-kubernetes/
+mkdir -p /dev/net
+mknod -m 600 /dev/net/tun c 10 200
+openvpn --mktun --dev tun0 --dev-type tun --user root --group nogroup
+
 ## start
 rm -f $status_path $pid_path
-exec openvpn \
+exec sg nogroup -c "exec openvpn \
   $@ $file_opts \
+  --dev tun0 \
   --cd $config_path \
   --status $status_path 10 \
-  --writepid $pid_path
+  --writepid $pid_path"

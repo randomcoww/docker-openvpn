@@ -4,7 +4,8 @@ RUN set -x \
   \
   && apk add --no-cache \
     openvpn \
-    bash
+    bash \
+    shadow
 
 COPY entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
