@@ -7,7 +7,7 @@ spec:
   restartPolicy: Always
   containers:
   - name: openvpn
-    image: randomcoww/openvpn:20171226.03
+    image: randomcoww/openvpn:20171226.05
     securityContext:
       capabilities:
         add:
@@ -20,7 +20,6 @@ spec:
     - name: OVPN_CONFIG
       value: |-
         client
-        dev tun
         proto udp
         remote us-seattle.privateinternetaccess.com 1198
         resolv-retry infinite
