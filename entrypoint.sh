@@ -31,10 +31,13 @@ mknod -m 600 /dev/net/tun c 10 200
 openvpn --mktun --dev tun0 --dev-type tun --user root --group nogroup
 
 ## start
-rm -f $status_path $pid_path
-exec sg nogroup -c "exec openvpn \
-  $@ $file_opts \
+openvpn_cmd="exec openvpn \
+  "$@" \
+  "$file_opts" \
   --dev tun0 \
-  --cd $config_path \
-  --status $status_path 10 \
-  --writepid $pid_path"
+  --cd "$config_path" \
+  --status "$status_path" 10 \
+  --writepid "$pid_path""
+
+rm -f $status_path $pid_path
+exec sg nogroup -c "$openvpn_cmd"

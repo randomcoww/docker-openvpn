@@ -5,10 +5,6 @@ metadata:
   name: openvpn
 spec:
   restartPolicy: Always
-  volumes:
-  - name: nettun
-    hostPath:
-      path: "/dev/net/tun"
   containers:
   - name: openvpn
     image: randomcoww/openvpn:20171226.03
@@ -99,6 +95,3 @@ spec:
         1wiqdteqFXkTYoSDctgKMiZ6GdocK9nMroQipIQtpnwd4yBDWIyC6Bvlkrq5TQUt
         YDQ8z9v+DMO6iwyIDRiU
         -----END CERTIFICATE-----
-    volumeMounts:
-    - mountPath: "/dev/net/tun"
-      name: nettun
