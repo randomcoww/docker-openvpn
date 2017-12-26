@@ -25,9 +25,9 @@ for config in $(compgen -e); do
 done
 
 ## start
-rm -f "$status_path" "$pid_path"
-exec openvpn \
+rm -f $status_path $pid_path
+exec sg openvpn -c "exec openvpn \
   $@ $file_opts \
-  --cd "$config_path" \
-  --status "$status_path" 10 \
-  --writepid "$pid_path"
+  --cd $config_path \
+  --status $status_path 10 \
+  --writepid $pid_path"
