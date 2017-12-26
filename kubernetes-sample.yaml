@@ -12,7 +12,7 @@ spec:
       path: "/dev/net/tun"
   containers:
   - name: openvpn
-    image: randomcoww/openvpn:20171226.02
+    image: randomcoww/openvpn:20171226.03
     securityContext:
       capabilities:
         add:
