@@ -4,8 +4,7 @@ RUN set -x \
   \
   && apk add --no-cache \
     openvpn \
-    bash \
     shadow
 
-COPY entrypoint.sh /
-ENTRYPOINT ["/entrypoint.sh"]
+COPY docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
