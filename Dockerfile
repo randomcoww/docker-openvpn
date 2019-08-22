@@ -10,7 +10,6 @@ RUN set -x \
   \
   && apk add --no-cache \
     openvpn \
-    bash \
     shadow
 
 COPY docker-entrypoint.sh /
