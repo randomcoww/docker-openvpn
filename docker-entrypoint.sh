@@ -1,5 +1,6 @@
 #!/bin/sh
 
+config_path=/etc/openvpn
 status_file=${STATUS_FILE:-/run/openvpn.status}
 pid_file=${PID_FILE:-/run/openvpn.pid}
 tun_interface=${TUN_INTERFACE:-tun0}
@@ -13,6 +14,7 @@ openvpn --mktun --dev $tun_interface --dev-type tun --user root --group nobody
 ## start
 openvpn_cmd="exec openvpn \
   "$@" \
+  --cd $config_path \
   --dev $tun_interface \
   --status $status_file 10 \
   --writepid $pid_file"
